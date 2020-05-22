@@ -1,0 +1,11 @@
+{
+  "name": "waypoint-challenge-by-nasim",
+  "version": "1.0.0",
+  "description": "Springworks recruitment challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nasim Mahzoun",
+  "license": "MIT"
+}
