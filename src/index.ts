@@ -1,44 +1,69 @@
 import waypoints from './waypoints.json'
-import { getPreciseDistance } from 'geolib' // library to calculate distans
 
+interface Waypoint {
+  timestamp: string,
+  position: {
+    latitude: number,
+    longitude: number,
+  },
+  speed: number,
+  speed_limit: number
+}
+
+interface InsuranceData {
+  totalDistance: number,
+  totalDuration: number,
+  speedingDistance: number,
+  speedingDuration: number,
+}
 
 // To make sure waypoints are sorted on timestamp
 waypoints.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
 
-/* Functions */
 
-// Total duration
-const TotalDuration = (firstTimestamp: string, lastTimestamp: string): number => {
-  const result = new Date(lastTimestamp).getTime() - new Date(firstTimestamp).getTime()
-  return result / 1000
+const getInsuranceData = (waypoints: Waypoint[]): InsuranceData => {
+
+  const distances: number[] = []
+  const times: number[] = []
+
+  waypoints.map((wp, index) => {
+    if (index < waypoints.length - 1) {
+      const time = ((new Date(waypoints[index + 1].timestamp).getTime() - new Date(wp.timestamp).getTime()) / 1000)
+      const averageSpeed = (wp.speed + waypoints[index + 1].speed) / 2
+
+      times.push(time)
+      distances.push(averageSpeed * time) // distance = speed * time
+    }
+  })
+  console.log("distances:", distances)
+  console.log("times:", times)
+
+  // Sum distances array
+  const totalDistance: number = distances.reduce((x, y) => x + y)
+  const totalDuration: number = times.reduce((x, y) => x + y)
+  const speedingDistance: number = 0 // not ready
+  const speedingDuration: number = 0 // not ready
+
+  return { totalDistance, totalDuration, speedingDistance, speedingDuration }
 }
-TotalDuration(waypoints[0].timestamp, waypoints[waypoints.length - 1].timestamp)
-
-// Total distance
-
-// Duration speeding
-
-// Distance speeding
+console.log(getInsuranceData(waypoints))
 
 
 
 
-const dist = getPreciseDistance(waypoints[1].position, waypoints[2].position)
-console.log(dist)
 
-// const speed = (distance: number, time: number): number => {
-//   return distance / time
+
+
+
+
+// // Total duration
+// const getTotalDuration = (firstTimestamp: string, lastTimestamp: string): number => {
+//   const result = new Date(lastTimestamp).getTime() - new Date(firstTimestamp).getTime()
+//   return result / 1000
 // }
+// // console.log("TotalDuration:", getTotalDuration(waypoints[0].timestamp, waypoints[waypoints.length - 1].timestamp))
 
-// const timeDifference = []
-// const distanceDifference = []
-// for (let i = 0; i < waypoints.length - 1; i++) {
-//   const time1: any = new Date(waypoints[i].timestamp)
-//   const time2: any = new Date(waypoints[i + 1].timestamp)
-//   timeDifference.push(time2 - time1)
-//   distanceDifference.push(getPreciseDistance(waypoints[i + 1].position, waypoints[i].position))
 
-// }
-// console.log(timeDifference, distanceDifference)
+
 
 

@@ -18,7 +18,5 @@
     "tslint": "^6.1.2",
     "typescript": "^3.9.3"
   },
-  "dependencies": {
-    "geolib": "^3.2.1"
-  }
+  "dependencies": {}
 }
