@@ -1,25 +1,44 @@
 import waypoints from './waypoints.json'
-import { getPreciseDistance } from 'geolib';
+import { getPreciseDistance } from 'geolib' // library to calculate distans
 
-const w1 = waypoints[0]
-const w2 = waypoints[1]
-console.log(waypoints)
 
-// console.log(w1, w2)
+// To make sure waypoints are sorted on timestamp
+waypoints.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
 
-const dist = getPreciseDistance(w1.position, w2.position)
+/* Functions */
 
-const speed = (distance: number, time: number): number => {
-  return distance / time
+// Total duration
+const TotalDuration = (firstTimestamp: string, lastTimestamp: string): number => {
+  const result = new Date(lastTimestamp).getTime() - new Date(firstTimestamp).getTime()
+  return result / 1000
 }
+TotalDuration(waypoints[0].timestamp, waypoints[waypoints.length - 1].timestamp)
 
-const timeDifference = []
-const distanceDifference = []
-for (let i = 0; i < waypoints.length - 1; i++) {
-  const time1: any = new Date(waypoints[i].timestamp)
-  const time2: any = new Date(waypoints[i + 1].timestamp)
-  timeDifference.push(time2 - time1)
-  distanceDifference.push(getPreciseDistance(waypoints[i + 1].position, waypoints[i].position))
+// Total distance
 
-}
-console.log(timeDifference, distanceDifference)
+// Duration speeding
+
+// Distance speeding
+
+
+
+
+const dist = getPreciseDistance(waypoints[1].position, waypoints[2].position)
+console.log(dist)
+
+// const speed = (distance: number, time: number): number => {
+//   return distance / time
+// }
+
+// const timeDifference = []
+// const distanceDifference = []
+// for (let i = 0; i < waypoints.length - 1; i++) {
+//   const time1: any = new Date(waypoints[i].timestamp)
+//   const time2: any = new Date(waypoints[i + 1].timestamp)
+//   timeDifference.push(time2 - time1)
+//   distanceDifference.push(getPreciseDistance(waypoints[i + 1].position, waypoints[i].position))
+
+// }
+// console.log(timeDifference, distanceDifference)
+
+
