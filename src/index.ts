@@ -17,8 +17,6 @@ interface InsuranceData {
   speedingDuration: number,
 }
 
-// To make sure waypoints are sorted on timestamp
-waypoints.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
 
 
 const getSpeedingDuration = (speedLimit1: number, speedLimit2: number, speed1: number, speed2: number, t1: number, t2: number): number => {
@@ -31,6 +29,9 @@ const getSpeedingDuration = (speedLimit1: number, speedLimit2: number, speed1: n
 }
 
 export const getInsuranceData = (waypoints: Waypoint[]): InsuranceData => {
+
+  // To make sure waypoints are sorted on timestamp
+  waypoints.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
 
   let totalDistance: number = 0
   let totalDuration: number = 0
@@ -55,6 +56,3 @@ export const getInsuranceData = (waypoints: Waypoint[]): InsuranceData => {
   }
   return { totalDistance, totalDuration, speedingDistance, speedingDuration }
 }
-
-console.log(getInsuranceData(waypoints))
-
