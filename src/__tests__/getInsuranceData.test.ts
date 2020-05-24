@@ -1,6 +1,6 @@
 import waypoints from '../waypoints.json'
 
-import { getInsuranceData } from '../index'
+import { getInsuranceData } from '../getInsuranceData'
 
 test('test_file', () => {
   const testWaypoint = waypoints
