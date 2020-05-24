@@ -8,8 +8,9 @@
     "start": "npm run build && node ./build/index.js",
     "dev": "ts-node-dev --respawn ./src/index.ts",
     "test": "jest",
+    "test:watch": "jest --watch",
     "coverage": "jest --coverage",
-    "build": "tsc",
+    "build": "npm run test && tsc",
     "lint": "tslint -p tsconfig.json"
   },
   "author": "Nasim Mahzoun",
