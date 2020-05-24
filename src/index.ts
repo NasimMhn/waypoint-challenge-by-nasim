@@ -30,7 +30,7 @@ const getSpeedingDuration = (speedLimit1: number, speedLimit2: number, speed1: n
   return 0
 }
 
-const getInsuranceData = (waypoints: Waypoint[]): InsuranceData => {
+export const getInsuranceData = (waypoints: Waypoint[]): InsuranceData => {
 
   let totalDistance: number = 0
   let totalDuration: number = 0
