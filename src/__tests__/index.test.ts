@@ -15,7 +15,7 @@ test('waypoints', () => {
 
 
 test('no_speeding', () => {
-  const waypoints = [
+  const testWaypoints = [
     {
       "timestamp": "2016-06-21T12:00:00.000Z",
       "position": {
@@ -41,5 +41,5 @@ test('no_speeding', () => {
     "speedingDistance": 0,
     "speedingDuration": 0
   }
-  expect(getInsuranceData(testWaypoint)).toMatchObject(correctAnswer);
+  expect(getInsuranceData(testWaypoints)).toMatchObject(correctAnswer);
 })
