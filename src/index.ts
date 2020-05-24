@@ -37,25 +37,24 @@ const getInsuranceData = (waypoints: Waypoint[]): InsuranceData => {
   let speedingDistance: number = 0
   let speedingDuration: number = 0
 
-  waypoints.map((wp, index) => {
-    if (index < waypoints.length - 1) {
-      const wp1 = wp
-      const wp2 = waypoints[index + 1]
+  for (let i = 1; i < waypoints.length; i++) {
+    const wp1 = waypoints[i - 1]
+    const wp2 = waypoints[i]
 
-      const t1 = new Date(wp1.timestamp).getTime() / 1000 // in seconds
-      const t2 = new Date(wp2.timestamp).getTime() / 1000 // in seconds
+    const t1 = new Date(wp1.timestamp).getTime() / 1000 // in seconds
+    const t2 = new Date(wp2.timestamp).getTime() / 1000 // in seconds
 
-      const tDifference = t2 - t1
-      const averageSpeed = (wp1.speed + wp2.speed) / 2
-      const speedingTime = getSpeedingDuration(wp1.speed_limit, wp2.speed_limit, wp1.speed, wp2.speed, t1, t2) // not exact
+    const tDifference = t2 - t1
+    const averageSpeed = (wp1.speed + wp2.speed) / 2
+    const speedingTime = getSpeedingDuration(wp1.speed_limit, wp2.speed_limit, wp1.speed, wp2.speed, t1, t2) // not exact
 
-      totalDistance += averageSpeed * tDifference // distance = speed * time
-      totalDuration += tDifference
-      speedingDistance += speedingTime * averageSpeed
-      speedingDuration += speedingTime
-    }
-  })
+    totalDistance += averageSpeed * tDifference // distance = speed * time
+    totalDuration += tDifference
+    speedingDistance += speedingTime * averageSpeed
+    speedingDuration += speedingTime
+  }
   return { totalDistance, totalDuration, speedingDistance, speedingDuration }
 }
+
 console.log(getInsuranceData(waypoints))
 
