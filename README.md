@@ -28,7 +28,7 @@ Write a program that reads the data from `waypoints.json` and categorizes it as 
 
 **Preferred languages in solution**
 
-- Typescript
+- <b>Typescript</b>
 - Javascript
 - Java
 - Swift
@@ -41,10 +41,8 @@ Good luck!
 :wave:
 
 
-# How to run finished solution
-
-- Clone repository `git clone https://github.com/Nasimmhn/waypoint-challenge-by-nasim.git`
-- Go to folder `cd waypoint-challenge-by-namsim`
-- Install typescript using `npm install -g typescript`
-- Run `npm start` to build and start
-- For development run `npm install` and `npm run dev`
+# How to test finished solution
+- Clone repository: `git clone https://github.com/Nasimmhn/waypoint-challenge-by-nasim.git`
+- Go to folder: `cd waypoint-challenge-by-nasim`
+- Install dependencies: `npm install`
+- Run tests: `npm run test`
