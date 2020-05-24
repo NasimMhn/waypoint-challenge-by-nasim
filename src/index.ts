@@ -21,49 +21,41 @@ interface InsuranceData {
 waypoints.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
 
 
+const getSpeedingDuration = (speedLimit1: number, speedLimit2: number, speed1: number, speed2: number, t1: number, t2: number): number => {
+
+  // if driver was speeding
+  if (speed1 > speedLimit1 || speed2 > speedLimit2) {
+    return t2 - t1
+  }
+  return 0
+}
+
 const getInsuranceData = (waypoints: Waypoint[]): InsuranceData => {
 
-  const distances: number[] = []
-  const times: number[] = []
+  let totalDistance: number = 0
+  let totalDuration: number = 0
+  let speedingDistance: number = 0
+  let speedingDuration: number = 0
 
   waypoints.map((wp, index) => {
     if (index < waypoints.length - 1) {
-      const time = ((new Date(waypoints[index + 1].timestamp).getTime() - new Date(wp.timestamp).getTime()) / 1000)
-      const averageSpeed = (wp.speed + waypoints[index + 1].speed) / 2
+      const wp1 = wp
+      const wp2 = waypoints[index + 1]
 
-      times.push(time)
-      distances.push(averageSpeed * time) // distance = speed * time
+      const t1 = new Date(wp1.timestamp).getTime() / 1000 // in seconds
+      const t2 = new Date(wp2.timestamp).getTime() / 1000 // in seconds
+
+      const tDifference = t2 - t1
+      const averageSpeed = (wp1.speed + wp2.speed) / 2
+      const speedingTime = getSpeedingDuration(wp1.speed_limit, wp2.speed_limit, wp1.speed, wp2.speed, t1, t2) // not exact
+
+      totalDistance += averageSpeed * tDifference // distance = speed * time
+      totalDuration += tDifference
+      speedingDistance += speedingTime * averageSpeed
+      speedingDuration += speedingTime
     }
   })
-  console.log("distances:", distances)
-  console.log("times:", times)
-
-  // Sum distances array
-  const totalDistance: number = distances.reduce((x, y) => x + y)
-  const totalDuration: number = times.reduce((x, y) => x + y)
-  const speedingDistance: number = 0 // not ready
-  const speedingDuration: number = 0 // not ready
-
   return { totalDistance, totalDuration, speedingDistance, speedingDuration }
 }
 console.log(getInsuranceData(waypoints))
-
-
-
-
-
-
-
-
-
-// // Total duration
-// const getTotalDuration = (firstTimestamp: string, lastTimestamp: string): number => {
-//   const result = new Date(lastTimestamp).getTime() - new Date(firstTimestamp).getTime()
-//   return result / 1000
-// }
-// // console.log("TotalDuration:", getTotalDuration(waypoints[0].timestamp, waypoints[waypoints.length - 1].timestamp))
-
-
-
-
 
