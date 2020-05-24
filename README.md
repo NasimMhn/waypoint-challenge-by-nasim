@@ -39,3 +39,12 @@ Submit the resulting source code for the solution, with tests to prove result, t
 Good luck!
 
 :wave:
+
+
+# How to run finished solution
+
+- Clone repository `git clone https://github.com/Nasimmhn/waypoint-challenge-by-nasim.git`
+- Go to folder `cd waypoint-challenge-by-namsim`
+- Install typescript using `npm install -g typescript`
+- Run `npm start` to build and start
+- For development run `npm install` and `npm run dev`
