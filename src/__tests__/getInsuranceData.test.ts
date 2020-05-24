@@ -1,8 +1,8 @@
 import waypoints from '../waypoints.json'
 
-import { getInsuranceData } from '../getInsuranceData'
+import getInsuranceData from '../getInsuranceData'
 
-test('test_file', () => {
+test('json_file', () => {
   const testWaypoint = waypoints
   const correctAnswer = {
     "totalDistance": 180.89725,
@@ -72,7 +72,6 @@ test('speeding', () => {
   }
   expect(getInsuranceData(testWaypoints)).toMatchObject(correctAnswer);
 })
-
 
 test('partially_speeding', () => {
   const testWaypoints = [
