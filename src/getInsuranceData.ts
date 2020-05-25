@@ -24,6 +24,10 @@ const getSpeedingDuration = (speedLimit1: number, speedLimit2: number, speed1: n
   }
   return 0
 }
+// convert timestamp to seconds
+const getTime = (timestamp: string): number => {
+  return new Date(timestamp).getTime() / 1000
+}
 
 const getInsuranceData = (waypoints: Waypoint[]): InsuranceData => {
 
@@ -39,15 +43,15 @@ const getInsuranceData = (waypoints: Waypoint[]): InsuranceData => {
     const wp1 = waypoints[i - 1]
     const wp2 = waypoints[i]
 
-    const t1 = new Date(wp1.timestamp).getTime() / 1000 // in seconds
-    const t2 = new Date(wp2.timestamp).getTime() / 1000 // in seconds
+    const t1 = getTime(wp1.timestamp)
+    const t2 = getTime(wp2.timestamp)
 
-    const tDifference = t2 - t1
+    const duration = t2 - t1
     const averageSpeed = (wp1.speed + wp2.speed) / 2
     const speedingTime = getSpeedingDuration(wp1.speed_limit, wp2.speed_limit, wp1.speed, wp2.speed, t1, t2) // not exact
 
-    totalDistance += averageSpeed * tDifference // distance = speed * time
-    totalDuration += tDifference
+    totalDistance += averageSpeed * duration // distance = speed * time
+    totalDuration += duration
     speedingDistance += speedingTime * averageSpeed
     speedingDuration += speedingTime
   }
